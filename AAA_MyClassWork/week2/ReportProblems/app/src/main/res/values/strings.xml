@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">ReportProblems</string>
+    <string name="clearBtn">Clear</string>
+    <string name="okBtn">OK</string>
+    <string name="initialMessage">Enter report here...OK</string>
+</resources>
