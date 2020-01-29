@@ -51,16 +51,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         EditText et1 = (EditText) findViewById(R.id.et1);
         EditText et2 = (EditText) findViewById(R.id.et2);
         if (et1.getText().toString().isEmpty()) {
-            new AlertDialog.Builder(this).setPositiveButton("OK", null).setMessage("Latitude should not be empty").show();
+            new AlertDialog.Builder(this).setPositiveButton("NULL", null).setMessage("Latitude should not be empty").show();
             return;
         } else {
             lat = Double.parseDouble(et1.getText().toString());
         }
         if (et2.getText().toString().isEmpty()) {
-            new AlertDialog.Builder(this).setPositiveButton("OK", null).setMessage("Longitude should not be empty").show();
+            new AlertDialog.Builder(this).setPositiveButton("NULL", null).setMessage("Longitude should not be empty").show();
             return;
         } else {
             lon = Double.parseDouble(et2.getText().toString());
         }
+        mv.getController().setZoom(17);
+        mv.getController().setCenter(new GeoPoint(lat,lon));
     }
 }
