@@ -61,24 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-
-        if (requestCode == 0) {
-
-            if (resultCode == RESULT_OK) {
-                Bundle extras = intent.getExtras();
-                boolean hikebikemap = extras.getBoolean("com.example.hikebikemap");
-                if (hikebikemap == true) {
-                    mv.setTileSource(TileSourceFactory.HIKEBIKEMAP);
-                } else {
-                    mv.setTileSource(TileSourceFactory.MAPNIK);
-                }
-            }
-        }
-    }
-
-
     @Override
     public void onClick(View v) {
         EditText et1 = (EditText) findViewById(R.id.et1);
@@ -97,5 +79,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         mv.getController().setZoom(17);
         mv.getController().setCenter(new GeoPoint(lat, lon));
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+
+        if (requestCode == 0) {
+
+            if (resultCode == RESULT_OK) {
+                Bundle extras = intent.getExtras();
+                boolean hikebikemap = extras.getBoolean("com.example.hikebikemap");
+                if (hikebikemap == true) {
+                    mv.setTileSource(TileSourceFactory.HIKEBIKEMAP);
+                } else {
+                    mv.setTileSource(TileSourceFactory.MAPNIK);
+                }
+            }
+        }
     }
 }
