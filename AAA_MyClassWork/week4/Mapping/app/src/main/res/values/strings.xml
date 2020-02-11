@@ -7,4 +7,5 @@
     <string name="hikebikemapview"><![CDATA[Hike & Bike]]></string>
     <string name="regularview">Regular</string>
     <string name="selectmap">Select Map</string>
+    <string name="setlocation">Set Location</string>
 </resources>
