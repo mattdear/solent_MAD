@@ -1,5 +1,6 @@
 package com.example.mapping;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,24 +20,34 @@ public class MainActivity extends AppCompatActivity {
     double lat;
     double lon;
 
-    /**
-     * Called when the activity is first created.
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         // This line sets the user agent, a requirement to download OSM maps
-        Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
+        Configuration.getInstance().load(this, prefs);
 
         setContentView(R.layout.activity_main);
 
         mv = (MapView) findViewById(R.id.map1);
 
-        mv.setBuiltInZoomControls(true);
-        mv.getController().setZoom(17);
-        mv.getController().setCenter(new GeoPoint(50.9349, -1.4219));
+
+        double lat = Double.parseDouble(prefs.getString("lat", "50.9"));
+        double lon = Double.parseDouble(prefs.getString("lon", "-1.4"));
+        double zoo = Double.parseDouble(prefs.getString("zoo", "17"));
+        String map = prefs.getString("map", "NONE");
+
+        if (map.equals("HBM")) {
+            mv.setTileSource(TileSourceFactory.HIKEBIKEMAP);
+        } else {
+            mv.setTileSource(TileSourceFactory.MAPNIK);
+        }
+
+        mv.setMultiTouchControls(true);
+        mv.getController().setZoom(zoo);
+        mv.getController().setCenter(new GeoPoint(lat, lon));
 
     }
 
@@ -55,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, SetLocation.class);
             startActivityForResult(intent, 1);
             return true;
+        } else if (item.getItemId() == R.id.mappreferences) {
+            Intent intent = new Intent(this, MapPreferences.class);
+            startActivityForResult(intent, 2);
         }
         return false;
     }

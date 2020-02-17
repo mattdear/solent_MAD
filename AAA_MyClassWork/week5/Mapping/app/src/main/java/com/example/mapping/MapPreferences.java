@@ -1,13 +1,14 @@
 package com.example.mapping;
 
-import android.support.v7.app.AppCompatActivity;
+import android.preference.PreferenceActivity;
 import android.os.Bundle;
 
-public class MapPreferences extends AppCompatActivity {
+public class MapPreferences extends PreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map_preferences);
+        addPreferencesFromResource(R.xml.preferences);
     }
+
 }
