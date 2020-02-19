@@ -9,4 +9,7 @@
     <item
         android:id="@+id/mappreferences"
         android:title="Map Preferences" />
+    <item
+        android:id="@+id/selectmap"
+        android:title="Select Map" />
 </menu>

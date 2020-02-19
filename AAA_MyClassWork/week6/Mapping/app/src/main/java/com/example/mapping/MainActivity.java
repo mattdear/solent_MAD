@@ -69,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.mappreferences) {
             Intent intent = new Intent(this, MapPreferences.class);
             startActivityForResult(intent, 2);
+        } else if (item.getItemId() == R.id.selectmap) {
+            Intent intent = new Intent(this, SelectMap.class);
+            startActivityForResult(intent, 0);
         }
         return false;
     }
