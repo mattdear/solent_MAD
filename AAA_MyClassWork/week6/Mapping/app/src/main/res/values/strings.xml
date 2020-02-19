@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Mapping</string>
+    <string name="lat">Latitude:</string>
+    <string name="lon">Longitude:</string>
+    <string name="goBtn">GO!</string>
+    <string name="choosemap">Choose Map</string>
+    <string name="hikebikemapview"><![CDATA[Hike & Bike]]></string>
+    <string name="regularview">Regular</string>
+    <string name="selectmap">Select Map</string>
+    <string name="setlocation">Set Location</string>
+</resources>
