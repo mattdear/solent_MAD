@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">SimpleTextEditor</string>
+    <string name="load">Load</string>
+    <string name="save">Save</string>
+    <string name="title_activity_save">save</string>
 </resources>
