@@ -3,4 +3,5 @@
     <string name="load">Load</string>
     <string name="save">Save</string>
     <string name="title_activity_save">save</string>
+    <string name="file">File Name</string>
 </resources>

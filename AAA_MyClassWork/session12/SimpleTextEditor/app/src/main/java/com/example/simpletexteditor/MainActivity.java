@@ -1,6 +1,5 @@
 package com.example.simpletexteditor;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -21,14 +20,16 @@ import java.io.PrintWriter;
 
 public class MainActivity extends AppCompatActivity {
 
-    String textOuput;
+    String textOutput;
+    String textInput;
+    String fileName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
+        fileName = prefs.getString(fileName,"textedit");
         setContentView(R.layout.activity_main);
     }
 
@@ -51,11 +52,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void saveTxtFile() {
         try {
-            PrintWriter pw =
-                    new PrintWriter(new FileWriter(Environment.getExternalStorageDirectory().getAbsolutePath() + "/textedit.txt"));
+            fileName = fileName + ".txt";
 
-            pw.println("Hello");
-            pw.println("It's a nice day!");
+            PrintWriter pw =
+                    new PrintWriter(new FileWriter(Environment.getExternalStorageDirectory().getAbsolutePath() + fileName));
+
+            EditText editText = (EditText) findViewById(R.id.etTextInputOutput);
+            textInput = editText.getText().toString();
+
+
+            pw.println(textInput);
             pw.close(); // close the file to ensure data is flushed to file
 
         } catch (IOException e) {
@@ -69,12 +75,13 @@ public class MainActivity extends AppCompatActivity {
             BufferedReader reader = new BufferedReader(fr);
             String line = "";
             while ((line = reader.readLine()) != null) {
-                textOuput = textOuput + line;
+                textOutput = textOutput + line;
             }
             reader.close();
 
             EditText editText = (EditText) findViewById(R.id.etTextInputOutput);
-            editText.setText("Google is your friend.", TextView.BufferType.EDITABLE);
+            editText.setText(textOutput);
+
 
         } catch (IOException e) {
             new AlertDialog.Builder(this).setPositiveButton("OK", null).
