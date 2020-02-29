@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        fileName = prefs.getString(fileName,"textedit");
+        fileName = prefs.getString(fileName, "textedit");
         setContentView(R.layout.activity_main);
     }
 
@@ -52,26 +51,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void saveTxtFile() {
         try {
-            fileName = fileName + ".txt";
-
             PrintWriter pw =
-                    new PrintWriter(new FileWriter(Environment.getExternalStorageDirectory().getAbsolutePath() + fileName));
+                    new PrintWriter(new FileWriter(Environment.getExternalStorageDirectory().getAbsolutePath() + fileName + ".txt"));
 
             EditText editText = (EditText) findViewById(R.id.etTextInputOutput);
             textInput = editText.getText().toString();
 
 
             pw.println(textInput);
-            pw.close(); // close the file to ensure data is flushed to file
+            pw.close();
 
         } catch (IOException e) {
-            System.out.println("I/O Error: " + e);
+            new AlertDialog.Builder(this).setPositiveButton("OK", null).
+                    setMessage("ERROR: " + e).show();
         }
     }
 
     public void loadTxtFile() {
         try {
-            FileReader fr = new FileReader(Environment.getExternalStorageDirectory().getAbsolutePath() + "/textedit.txt");
+            FileReader fr = new FileReader(Environment.getExternalStorageDirectory().getAbsolutePath() + fileName + ".txt");
             BufferedReader reader = new BufferedReader(fr);
             String line = "";
             while ((line = reader.readLine()) != null) {
