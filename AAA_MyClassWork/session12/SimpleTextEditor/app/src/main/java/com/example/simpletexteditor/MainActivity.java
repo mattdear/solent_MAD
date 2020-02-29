@@ -22,15 +22,18 @@ public class MainActivity extends AppCompatActivity {
 
     String textOutput = "";
     String textInput = "";
-    String fileName;
+    String fileName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        fileName = prefs.getString(fileName, "textedit");
         setContentView(R.layout.activity_main);
+    }
+
+    public void onResume() {
+        super.onResume();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        fileName = prefs.getString("fileName", "textedit");
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -61,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
             EditText editText = (EditText) findViewById(R.id.etTextInputOutput);
             textInput = editText.getText().toString();
 
-
             pw.println(textInput);
             pw.close();
 
@@ -85,14 +87,10 @@ public class MainActivity extends AppCompatActivity {
             EditText editText = (EditText) findViewById(R.id.etTextInputOutput);
             editText.setText(textOutput);
 
-
         } catch (IOException e) {
             new AlertDialog.Builder(this).setPositiveButton("OK", null).
                     setMessage("ERROR: " + e).show();
-
         }
-
     }
-
 }
 
