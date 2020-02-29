@@ -1,5 +1,6 @@
 package com.example.simpletexteditor;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -19,8 +20,8 @@ import java.io.PrintWriter;
 
 public class MainActivity extends AppCompatActivity {
 
-    String textOutput;
-    String textInput;
+    String textOutput = "";
+    String textInput = "";
     String fileName;
 
     @Override
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.load) {
             loadTxtFile();
             return true;
+        } else if (item.getItemId() == R.id.file) {
+            Intent intent = new Intent(this, FilePreference.class);
+            startActivityForResult(intent, 2);
         }
         return false;
     }
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     public void saveTxtFile() {
         try {
             PrintWriter pw =
-                    new PrintWriter(new FileWriter(Environment.getExternalStorageDirectory().getAbsolutePath() + fileName + ".txt"));
+                    new PrintWriter(new FileWriter(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileName + ".txt"));
 
             EditText editText = (EditText) findViewById(R.id.etTextInputOutput);
             textInput = editText.getText().toString();
@@ -69,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadTxtFile() {
         try {
-            FileReader fr = new FileReader(Environment.getExternalStorageDirectory().getAbsolutePath() + fileName + ".txt");
+            textOutput = "";
+            FileReader fr = new FileReader(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileName + ".txt");
             BufferedReader reader = new BufferedReader(fr);
             String line = "";
             while ((line = reader.readLine()) != null) {
