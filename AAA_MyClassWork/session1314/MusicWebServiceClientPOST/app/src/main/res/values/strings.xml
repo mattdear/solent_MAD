@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MusicWebServiceClientPOST</string>
     <string name="addBtn">Add</string>
-    <string name="song">Song</string>
-    <string name="artist">Artist</string>
-    <string name="year">Year</string>
+    <string name="song">Song:</string>
+    <string name="artist">Artist:</string>
+    <string name="year">Year:</string>
 </resources>
