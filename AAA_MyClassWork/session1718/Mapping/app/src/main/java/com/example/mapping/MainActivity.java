@@ -62,12 +62,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
 
         items = new ItemizedIconOverlay<OverlayItem>(this, new ArrayList<OverlayItem>(), markerGestureListener);
-        OverlayItem fernhurst = new OverlayItem("Fernhurst", "the village of Fernhurst", new GeoPoint(51.05, -0.72));
+        OverlayItem bassett = new OverlayItem("Hollybrook", "the posh part of town", new GeoPoint(50.9338, -1.4240));
 
-        // NOTE is just this.getDrawable() if supporting API 21+ only
-        fernhurst.setMarker(getDrawable(R.drawable.marker));
-        items.addItem(fernhurst);
-        items.addItem(new OverlayItem("Blackdown", "highest point in West Sussex", new GeoPoint(51.0581, -0.6897)));
+        bassett.setMarker(this.getDrawable(R.drawable.marker));
+        items.addItem(bassett);
+        items.addItem(new OverlayItem("Matt's House", "The home of the man the legend that is Matthew Dear", new GeoPoint(50.9349, -1.4219)));
         mv.getOverlays().add(items);
 
         Button b = (Button) findViewById(R.id.btn1);
