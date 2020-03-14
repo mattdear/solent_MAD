@@ -11,15 +11,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.OverlayItem;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     MapView mv;
+    ItemizedIconOverlay<OverlayItem> items;
+    ItemizedIconOverlay.OnItemGestureListener<OverlayItem> markerGestureListener;
     double lat;
     double lon;
 
@@ -42,6 +49,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mv.getController().setZoom(17);
         mv.getController().setCenter(new GeoPoint(50.9349, -1.4219));
 
+        markerGestureListener = new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+            public boolean onItemLongPress(int i, OverlayItem item) {
+                Toast.makeText(MainActivity.this, item.getSnippet(), Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            public boolean onItemSingleTapUp(int i, OverlayItem item) {
+                Toast.makeText(MainActivity.this, item.getSnippet(), Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        };
+
+        items = new ItemizedIconOverlay<OverlayItem>(this, new ArrayList<OverlayItem>(), markerGestureListener);
+        OverlayItem fernhurst = new OverlayItem("Fernhurst", "the village of Fernhurst", new GeoPoint(51.05, -0.72));
+
+        // NOTE is just this.getDrawable() if supporting API 21+ only
+        fernhurst.setMarker(getDrawable(R.drawable.marker));
+        items.addItem(fernhurst);
+        items.addItem(new OverlayItem("Blackdown", "highest point in West Sussex", new GeoPoint(51.0581, -0.6897)));
+        mv.getOverlays().add(items);
+
         Button b = (Button) findViewById(R.id.btn1);
         b.setOnClickListener(this);
     }
@@ -63,6 +91,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             lon = Double.parseDouble(et2.getText().toString());
         }
         mv.getController().setZoom(17);
-        mv.getController().setCenter(new GeoPoint(lat,lon));
+        mv.getController().setCenter(new GeoPoint(lat, lon));
     }
 }
