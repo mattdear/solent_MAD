@@ -1,6 +1,7 @@
 package com.example.mapping;
 
 import android.app.AlertDialog;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,9 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.OverlayItem;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -62,10 +66,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
 
         items = new ItemizedIconOverlay<OverlayItem>(this, new ArrayList<OverlayItem>(), markerGestureListener);
-        OverlayItem bassett = new OverlayItem("Hollybrook", "the posh part of town", new GeoPoint(50.9338, -1.4240));
 
-        bassett.setMarker(this.getDrawable(R.drawable.marker));
-        items.addItem(bassett);
+        try {
+            FileReader fr = new FileReader(Environment.getExternalStorageDirectory().getAbsolutePath() + "/restaurants.txt");
+            BufferedReader reader = new BufferedReader(fr);
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                String[] components = line.split(",");
+                if (components.length == 5) {
+                    OverlayItem currentPoi = new OverlayItem(components[0], components[1], components[2], new GeoPoint(Double.parseDouble(components[4]),Double.parseDouble(components[3])));
+                    currentPoi.setMarker(this.getDrawable(R.drawable.marker));
+                    items.addItem(currentPoi);
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            new AlertDialog.Builder(this).setPositiveButton("OK", null).
+                    setMessage("ERROR: " + e).show();
+
+        }
+
         items.addItem(new OverlayItem("Matt's House", "The home of the man the legend that is Matthew Dear", new GeoPoint(50.9349, -1.4219)));
         mv.getOverlays().add(items);
 
