@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/panel1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_above="@id/panel2"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/lat"
+                android:textSize="25dp" />
+
+            <EditText
+                android:id="@+id/et1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv1"
+                android:inputType="numberDecimal|numberSigned" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/panel2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_above="@id/panel3"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/lon"
+                android:textSize="25dp" />
+
+            <EditText
+                android:id="@+id/et2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv2"
+                android:inputType="numberDecimal|numberSigned" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/panel3"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_above="@id/panel4"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn1"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:text="@string/goBtn" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/panel4"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+            <org.osmdroid.views.MapView
+                android:id="@+id/map1"
+                tilesource="Mapnik"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:enabled="true" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
