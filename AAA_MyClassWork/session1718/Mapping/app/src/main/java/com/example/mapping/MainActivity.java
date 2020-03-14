@@ -74,8 +74,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             while ((line = reader.readLine()) != null) {
                 String[] components = line.split(",");
                 if (components.length == 5) {
-                    OverlayItem currentPoi = new OverlayItem(components[0], components[1], components[2], new GeoPoint(Double.parseDouble(components[4]),Double.parseDouble(components[3])));
-                    currentPoi.setMarker(this.getDrawable(R.drawable.marker));
+                    OverlayItem currentPoi = new OverlayItem(components[0], components[1], components[2], new GeoPoint(Double.parseDouble(components[4]), Double.parseDouble(components[3])));
+                    switch (components[1]) {
+                        case "Chinese":
+                            currentPoi.setMarker(this.getDrawable(R.drawable.pub));
+                            break;
+
+                        case "Indian":
+                            currentPoi.setMarker(this.getDrawable(R.drawable.teashop));
+                            break;
+
+                        case "Thai":
+                            currentPoi.setMarker(this.getDrawable(R.drawable.restaurant));
+                            break;
+                        default:
+                            currentPoi.setMarker(this.getDrawable(R.drawable.marker));
+                    }
                     items.addItem(currentPoi);
                 }
             }
